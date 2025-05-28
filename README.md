@@ -24,7 +24,7 @@ Healthcare misinformation and accessibility gaps inspired this project. We wante
 
 * **Frontend**: HTML5, CSS3, JavaScript
 * **Backend**: Python, Flask
-* **AI Integration**: [Perplexity Sonar API](https://docs.perplexity.ai/)
+* **AI Integration**: [Perplexity Sonar API](https://docs.perplexity.ai/) (Sonar and Sonar-Pro used)
 * **Rendering**: Jinja2 Templating
 * **Markdown Processing**: Python-Markdown
 * **Session Management**: Flask Session
