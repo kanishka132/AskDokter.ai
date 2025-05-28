@@ -1,0 +1,68 @@
+body{
+  background-color: black;
+  text-align: center;
+}
+
+h1 {
+  position: relative;
+  font-family: "Neonderthaw", cursive;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 5em;
+  color: whitesmoke;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation:
+    typing 1s steps(25, end) forwards;
+  margin: 8% auto;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 12ch } 
+}
+
+h2{
+  color: whitesmoke;
+  text-align: center;
+  font-family: 'Dancing script';
+  font-size: 2.5em
+
+}
+
+#tag {
+  color: whitesmoke;
+}
+
+.tiles {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 7%;
+  }
+  
+  .card {
+    margin-bottom: 2%;
+    display: block;
+    padding: 2%;
+    background-size: 200% auto;
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: bold;
+    color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-color: azure;
+    border-radius: 999em;
+    box-shadow: 1px 1px 10px azure;
+    transition: transform 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    background-position: right center;
+  }
+  
+
+

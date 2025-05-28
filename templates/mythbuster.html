@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, intial-scale=1.0"/>
+    <link rel="stylesheet" href="/static/styles_mythbuster.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Delius&family=Courgette&display=swap" rel="stylesheet">
+    <title>Myth Buster</title>        
+</head>
+<body>
+    <a href="/" style="position: absolute; top: 15px; left: 15px; text-decoration: none; font-weight: bold; font-family: sans-serif;">← Back to Home</a>
+    <main>
+        <h1>Health Myth Buster</h1>
+        <div id="loadingSpinner">
+            <div class="spinner"></div>
+        </div>
+        <form id="MyForm" class="info" method="POST" >
+        <fieldset id="heading">
+            <legend id="askUser"><strong>🩺Got a health rumor? Let’s crush it with facts!</strong></legend>
+            <input id="userInput" type="text" name="userInput" placeholder="Enter your question here" required/>
+            <span><button type="submit" id="b">CHECK</button><button type="reset" id="clear">CLEAR</button></span>
+        </fieldset>
+        </form>
+
+        {% if reply %}
+        <div id="highlight">
+            <h2>Was it a Myth or a Fact❓</h2>
+            <div id="result">
+            <h3> Here’s what we found about: <em style="color: rgb(255, 109, 5);">{{ question}}</em></h3>
+            {% if verdict == "False" %}
+                <img class="verdict" src="/static/myth-stamp.png"/>
+            {% elif verdict == "True" %}
+                <img class="verdict" src="/static/fact-stamp.png"/>
+            {% else %}
+                <img class="verdict" src="/static/maybe_stamp.png"/>
+            {% endif %}
+            <div class="response">
+            <p class="content">{{ reply }}</p>
+            <h4>Explanation</h4>
+            <p class="content">{{ explanation }}</p>
+            {% if citations %}
+            <h4>Citations</h4>
+            <div class="content">
+            <ol>
+                {% for cite in citations %}
+                    <li>
+                    <strong>{{ cite.source }}</strong>: 
+                    {{ cite.statement }}<br>
+                    <a href="{{ cite.url }}" target="_blank">{{ cite.url }}</a>
+                    </li>
+                {% endfor %}
+            </ol>
+            </div>
+            {% endif %}
+            </div>
+            </div>
+        </div>
+        <button onclick="scrollToTop()" id="backToTop" title="Go to top">Click here to ask another question</button>
+        {% endif %}
+
+    
+    </main>
+    
+    <footer>
+        AskDokter.ai Health Myth Buster © 2025 | Powered by Perplexity Sonar API
+    </footer> 
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const highlight = document.getElementById('highlight');
+            if (highlight) {
+            highlight.scrollIntoView({ behavior:"auto" });
+            // Trigger highlight animation
+            highlight.classList.add('flash');
+            setTimeout(() => highlight.classList.remove('flash'), 2000);
+            }
+        });
+
+
+        const topBtn = document.getElementById("backToTop");
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        const form = document.getElementById("MyForm");
+        const loadingspinner = document.getElementById("loadingSpinner");
+        
+        form.addEventListener("submit", function(event) {
+            loadingspinner.style.display = "flex";
+        });
+
+        
+    </script>
+</body>   
+</html>
+

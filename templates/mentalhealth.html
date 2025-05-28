@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental health assitant</title>
+    <link rel="stylesheet" href="/static/styles_mhealth.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Limelight&family=Courgette&display=swap"/>
+</head>
+<body>
+    <a href="/" style="position: absolute; top: 15px; left: 15px; text-decoration: none; font-weight: bold; font-family: sans-serif;">← Back to Home</a>
+  <main>
+    <h1 class="title">Mental health Assitant</h1>
+    <h2 >It's okay to not be okay</h2>
+
+    <div class="chat-container" id="chat-box">
+      {% for msg in chat if msg.role != 'system' %}
+          <div class="chat-line {{ msg.role }}" {% if loop.last %} id="last-msg" {% endif %}>
+            <img src="/static/{{ 'bot.jpg' if msg.role == 'assistant' else 'user.png' }}" class="avatar" alt="avatar">
+            <div class="chat-bubble {{ msg.role }}">
+              {{ format_bot_message(msg.content)|safe }}
+            </div>               
+          </div>
+      {% endfor %}
+
+      <div id="typing" class="typing-indicator" style="display: none;">Bot is typing...</div>
+
+    </div>
+
+    <form method="POST" class="chat-form">
+        <input type="text" name="user_input" placeholder="Start your conversation here..." required style="width: 90%;">
+        <button type="submit">Send</button>
+    </form>
+    <form action="/mental_reset" method="get" class="reset" style="margin-top: 10px;">
+        <button type="submit">Reset Chat</button>
+    </form>
+  </main>
+
+  <script>
+      // Only reset on a full page reload (not back/forward)
+      if (performance.navigation.type === 1 || performance.getEntriesByType("navigation")[0].type === "reload") {
+          // Redirect to /reset once on reload
+          window.location.href = "/mental_reset";
+      }
+      
+      const lastMsg = document.getElementById('last-msg');
+      const typingIndicator = document.getElementById('typing');
+
+      if (lastMsg) {
+          lastMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      const form = document.querySelector("form");
+      if (form) {
+          form.addEventListener("submit", () => {
+              typingIndicator.style.display = "block";
+          });
+      }
+      
+  </script>
+
+  <footer>
+    AskDokter.ai Mental health assitant © 2025 | Powered by Perplexity Sonar API
+  </footer>
+</body>
+</html>
+
